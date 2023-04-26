@@ -1,8 +1,16 @@
-import PhotoShoot
-import File
+import os
+from src.File import File
 
-src_path = "./../pictures"
-dest_path = "./../backup"
+src_path = "/Users/chriswolter/Downloads"
+dest_path = "/Users/chriswolter/Downloads/backup"
+files_from_path = []
 
-list_test = ['01.jpg','01.MOV','01.jpeg','01.CR2','01.pdf','01.raw',]
+for path, dirs, files in os.walk(src_path):
+    for file in files:
+        file_object = File(os.path.join(path,file), file)
+        files_from_path.append(file_object)
+
+for file in files_from_path:
+    print(file.creation_date)
+
 
