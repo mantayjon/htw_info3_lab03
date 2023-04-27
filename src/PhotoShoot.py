@@ -1,3 +1,4 @@
+
 class PhotoShoot:
 
     def __init__(self, photo_shoot_name, all_files):
@@ -22,3 +23,15 @@ class PhotoShoot:
             else:
                 self.other_files.append(file)
                 print(self.other_files)
+
+'''
+    def put_files_in_sub_folder(self, folder_name):
+        os.mkdir(folder_name + "_jpg")
+        os.mkdir(folder_name + "_raw")
+        os.mkdir(folder_name + "_video")
+        os.mkdir(folder_name + "_other")
+
+        for files in self.jpeg:
+            shutil.copyfile(src_path + "/" + (key = lambda x: x.file_name), folder_name + "_jpg")
+
+'''
