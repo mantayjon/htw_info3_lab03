@@ -30,8 +30,9 @@ for shooting in sorted_files:
     extension_index = 0
     shooting_index += 1
     for index, extension in enumerate(shooting):
-        extension_directory = shooting_directory + "/"+file_extension[extension_index]
-        os.mkdir(extension_directory)
+        if extension:
+            extension_directory = shooting_directory + "/"+file_extension[extension_index]
+            os.mkdir(extension_directory)
+            for file in extension:
+                shutil.copy(file.file_url, extension_directory)
         extension_index += 1
-        for file in extension:
-            shutil.copy(file.file_url, extension_directory)

@@ -30,11 +30,12 @@ class PhotoShoot:
         for shooting in self.sorted_by_timestamp:
             shooting_result = [[], [], [], []]
             for file in shooting:
-                if file.file_extension == 'jpeg' or file.file_extension == 'jpg':
+                file_extension = file.file_extension.lower()
+                if file_extension == 'jpeg' or file_extension == 'jpg':
                     shooting_result[0].append(file)
-                elif file.file_extension == 'raw' or file.file_extension == 'arw' or file.file_extension == 'CR3':
+                elif file_extension == 'raw' or file_extension == 'arw' or file_extension == 'cr3':
                     shooting_result[1].append(file)
-                elif file.file_extension == 'mp4' or file.file_extension == 'MOV' or file.file_extension == 'MPEG-4':
+                elif file_extension == 'mp4' or file_extension == 'mov' or file_extension == 'mpeg-4':
                     shooting_result[2].append(file)
                 else:
                     shooting_result[3].append(file)
