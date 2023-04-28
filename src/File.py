@@ -1,33 +1,40 @@
 from datetime import datetime
 import os.path
-import time
-
-import exifread as exifread
-import filetype as filetype
+import PIL
+import exiv2
 from PIL import Image
+import cv2
+
+
 class File:
     def __init__(self, file_url):
         self.file_url = file_url
         self.file_name = os.path.basename(file_url)
-        self.file_extension = self.file_name.split(".")[1]
+        self.file_extension = self.file_name.split(".")[1].lower()
         self.creation_date = self.get_creation_date(file_url)
 
-    def get_creation_date(self, file_path):
-        creation_time = 0
-        print(file_path)
-        if filetype.is_image(file_path) or filetype.is_video(file_path):
-            # creation_time = Image.open(file_path)._getexif()
-            creation_time = None
-            f = open(file_path, 'rb')
-            tags = exifread.process_file(f, details=False)
-            for key in tags:
-                if key == "EXIF DateTimeOriginal":
-                    creation_time = str(tags["EXIF DateTimeOriginal"])
+    file_types = ["jpeg", "jpg", "cr3", "cr2", "mp4", "mpeg"]
 
-            if creation_time is not None:
-                # exif_time = creation_time[36867]
-                # creation_time = datetime.strptime(exif_time, "%Y:%m:%d %H:%M:%S").timestamp()
-                creation_time = 2
+    def get_creation_date(self, file_path):
+        if self.file_extension in self.file_types:
+            exiv2.enableBMFF(True)
+            exiv_image = exiv2.ImageFactory.open(file_path)
+            exiv_image.readMetadata()
+            exif_data = exiv_image.exifData()
+            exif_dt = exiv2.dateTimeOriginal(exif_data)
+            if exif_dt is not None:
+                timestamp = str(exif_dt).split(": ")[1]
+                creation_time = datetime.strptime(timestamp, "%Y:%m:%d %H:%M:%S").timestamp()
+            elif exif_dt is None:
+                try:
+                    dt_object = Image.open(file_path)._getexif()[36867]
+                    creation_time = datetime.strptime(dt_object, "%Y:%m:%d %H:%M:%S").timestamp()
+                except PIL.UnidentifiedImageError:
+                    creation_time = os.stat(file_path).st_birthtime
+                except:
+                    creation_time = os.path.getctime(file_path)
             else:
                 creation_time = os.path.getctime(file_path)
+        else:
+            creation_time = os.path.getctime(file_path)
         return creation_time

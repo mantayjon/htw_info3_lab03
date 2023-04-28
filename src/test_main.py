@@ -1,6 +1,5 @@
 import unittest
 from File import File
-from PhotoShoot import sort_files
 
 
 class MyTestCase(unittest.TestCase):
