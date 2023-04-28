@@ -13,7 +13,7 @@ class File:
         self.file_extension = self.file_name.split(".")[1].lower()
         self.creation_date = self.get_creation_date(file_url)
 
-    file_types = ["jpeg", "jpg", "cr3", "cr2", "mp4", "mpeg"]
+    file_types = ["raw", "dng", "cr3", "arw", "cr2", "tiff", "crw", "orf", "nef", "nrw", "rw2", "srf", "sr2", "jpeg", "jpg", "png", "heic", "heif", "gif", "mp4", "mov", "mpeg-4", "avi", "wmv", "avchd", "webm", "flv"]
 
     def get_creation_date(self, file_path):
         if self.file_extension in self.file_types:

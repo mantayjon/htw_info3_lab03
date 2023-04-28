@@ -27,15 +27,19 @@ class PhotoShoot:
 
     def sort_by_filetype(self):
         result = []
+        raw_files = ["raw", "dng", "cr3", "arw", "cr2", "tiff", "crw", "orf", "nef", "nrw", "rw2", "srf", "sr2"]
+        non_raw_files = ["jpeg", "jpg", "png", "heic", "heif", "gif"]
+        video_files = ["mp4", "mov", "mpeg-4", "avi", "wmv", "avchd", "webm", "flv"]
+
         for shooting in self.sorted_by_timestamp:
             shooting_result = [[], [], [], []]
             for file in shooting:
                 file_extension = file.file_extension.lower()
-                if file_extension == 'jpeg' or file_extension == 'jpg':
+                if file_extension in non_raw_files:
                     shooting_result[0].append(file)
-                elif file_extension == 'raw' or file_extension == 'arw' or file_extension == 'cr3':
+                elif file_extension in raw_files:
                     shooting_result[1].append(file)
-                elif file_extension == 'mp4' or file_extension == 'mov' or file_extension == 'mpeg-4':
+                elif file_extension in video_files:
                     shooting_result[2].append(file)
                 else:
                     shooting_result[3].append(file)
