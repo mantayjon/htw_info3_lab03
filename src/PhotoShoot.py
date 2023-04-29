@@ -24,6 +24,12 @@ class PhotoShoot:
                 self.other_files.append(file)
                 print(self.other_files)
 
+
+
+
+
+
+
 '''
     def put_files_in_sub_folder(self, folder_name):
         os.mkdir(folder_name + "_jpg")

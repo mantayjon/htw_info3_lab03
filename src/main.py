@@ -26,7 +26,7 @@ print_file_list(src_path)
 file_url_list = get_file_urls(src_path)
 print(file_url_list)
 
-'''
+
 def put_files_in_list(url_list):
     file_list = []
 
@@ -41,4 +41,4 @@ def put_files_in_list(url_list):
 file_object_list = put_files_in_list(file_url_list)
 print(file_object_list)
 
-'''
+
